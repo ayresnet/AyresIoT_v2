@@ -27,9 +27,10 @@ export const AuthShell: React.FC<AuthShellProps> = ({
         .auth-layout-shell { display: flex; min-height: 100vh; width: 100%; background-color: #0a0a0c; color: white; overflow: hidden; font-family: system-ui, -apple-system, sans-serif; box-sizing: border-box; }
         .auth-left { display: none; width: 60%; position: relative; flex-direction: column; justify-content: space-between; background-color: #070a13; }
         .auth-right { flex: 1; position: relative; display: flex; flex-direction: column; justify-content: center; background-color: #0a0a0c; z-index: 20; overflow-y: auto; overflow-x: hidden; }
-        
         .auth-form-container { width: 100%; max-width: ${maxWidth}; margin: 0 auto; padding: 2rem; box-sizing: border-box; position: relative; z-index: 10; }
-        .auth-mobile-logo { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 2.5rem; }
+        .auth-mobile-logo { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 3rem; text-align: center; }
+        .auth-mobile-logo img { width: 48px !important; height: 48px !important; }
+        .auth-mobile-logo span { fontSize: 1.5rem !important; }
         
         .auth-footer { margin-top: 2.5rem; border-top: 1px solid rgba(31, 41, 55, 0.3); padding-top: 1.25rem; display: flex; justify-content: center; align-items: center; gap: 0.4rem; }
 
@@ -79,8 +80,8 @@ export const AuthShell: React.FC<AuthShellProps> = ({
           <div className="auth-form-container">
             
             <div className="auth-mobile-logo">
-              <img src="/icono_ayresiot_v2.svg" alt="ayresIoT" style={{ width: '32px', height: '32px' }} />
-              <span style={{ fontSize: '1.25rem', fontWeight: 'bold', letterSpacing: '-0.025em', color: 'white' }}>ayresIoT</span>
+              <img src="/icono_ayresiot_v2.svg" alt="ayresIoT" />
+              <span style={{ fontWeight: 'bold', letterSpacing: '-0.025em', color: 'white' }}>ayresIoT</span>
             </div>
 
             <div style={{ marginBottom: '2rem' }}>

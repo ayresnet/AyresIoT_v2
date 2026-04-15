@@ -24,7 +24,15 @@ export default function LoginPage() {
       await login(email, password);
       router.push("/dashboard");
     } catch (err: any) {
-      setError("Credenciales incorrectas.");
+      console.error("Login Error Details:", err);
+      // Muestra el mensaje real para debug o un mensaje genérico
+      if (err.code === "auth/invalid-credential") {
+        setError("Credenciales incorrectas.");
+      } else if (err.code === "auth/unauthorized-domain") {
+        setError(`Error: El dominio ${window.location.hostname} no está autorizado en Firebase Console.`);
+      } else {
+        setError(`Error: ${err.message || "No se pudo iniciar sesión"}`);
+      }
       setLoading(false);
     }
   };

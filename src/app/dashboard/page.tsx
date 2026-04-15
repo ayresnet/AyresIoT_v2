@@ -1,132 +1,85 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { 
-  LayoutDashboard, 
-  Users, 
-  Settings, 
-  Bell, 
-  Power, 
-  Smartphone, 
-  ShieldCheck,
-  User as UserIcon,
-  LogOut
-} from "lucide-react";
-import { motion } from "framer-motion";
+
+// Componentes modulares
+import { TopNavBar } from "./_components/TopNavBar";
+import { SideNavBar } from "./_components/SideNavBar";
+import { WidgetAlarma } from "./_components/WidgetAlarma";
+import { WidgetPortones } from "./_components/WidgetPortones";
+import { ActivityRail } from "./_components/ActivityRail";
+import { FooterStats } from "./_components/FooterStats";
 
 export default function DashboardLayout() {
-  const { dbUser, logout, loading, user } = useAuth();
+  const { dbUser, loading, user } = useAuth();
   const router = useRouter();
+  const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+
+  // Redirección si no está logueado
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push("/login");
+    }
+  }, [loading, user, router]);
 
   if (loading) return (
-    <div className="min-h-screen flex items-center justify-center bg-[#020617]">
-      <div className="w-12 h-12 border-4 border-blue-500/20 border-t-blue-500 rounded-full animate-spin" />
+    <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="w-12 h-12 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
     </div>
   );
 
   if (!user) {
-    if (typeof window !== "undefined") router.push("/login");
-    return null;
+    return null; // Esperando la redirección del useEffect
   }
 
-  const menuItems = [
-    { icon: LayoutDashboard, label: "Vista General", roles: ["superadmin", "admin", "user"] },
-    { icon: ShieldCheck, label: "Seguridad / Alarma", roles: ["superadmin", "admin", "user"] },
-    { icon: Smartphone, label: "Mis Dispositivos", roles: ["superadmin", "admin", "user"] },
-    { icon: Users, label: "Gestión de Usuarios", roles: ["superadmin", "admin"] },
-    { icon: Bell, label: "Notificaciones", roles: ["superadmin", "admin", "user"] },
-    { icon: Settings, label: "Configuración", roles: ["superadmin", "admin", "user"] },
-  ];
-
   return (
-    <div className="min-h-screen bg-[#020617] text-slate-100 flex overflow-hidden">
+    <div className="min-h-screen bg-background text-on-surface selection:bg-primary selection:text-on-primary overflow-x-hidden">
+      <TopNavBar onMenuClick={() => setIsSidebarOpen(!isSidebarOpen)} />
       
-      {/* Sidebar Glass */}
-      <aside className="w-72 border-r border-slate-800/50 bg-slate-900/30 backdrop-blur-xl flex flex-col z-20">
-        <div className="p-8">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-tr from-blue-600 to-emerald-500 rounded-xl flex items-center justify-center shadow-lg shadow-blue-500/20">
-              <Power className="text-white" size={20} />
-            </div>
-            <span className="text-xl font-bold tracking-tight">Ayres<span className="text-blue-500">IoT</span></span>
-          </div>
-        </div>
+      <div className="flex pt-16 min-h-screen relative">
+        <SideNavBar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
-        <nav className="flex-1 px-4 space-y-2 py-4">
-          {menuItems.map((item, index) => {
-            if (dbUser && !item.roles.includes(dbUser.role)) return null;
-            return (
-              <button
-                key={index}
-                className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:text-white hover:bg-white/5 transition-all duration-200 group"
-              >
-                <item.icon size={20} className="group-hover:text-blue-400 transition-colors" />
-                <span className="font-medium">{item.label}</span>
-              </button>
-            );
-          })}
-        </nav>
-
-        {/* User profile Mini */}
-        <div className="p-4 border-t border-slate-800/50">
-          <div className="bg-white/5 rounded-2xl p-4 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center border border-slate-700">
-              <UserIcon size={20} className="text-blue-400" />
-            </div>
-            <div className="flex-1 overflow-hidden">
-              <p className="text-sm font-semibold truncate leading-none mb-1">
-                {dbUser?.nombre || "Usuario"} {dbUser?.apellido}
-              </p>
-              <p className="text-[10px] text-slate-500 uppercase tracking-widest font-bold">
-                {dbUser?.role || "user"}
-              </p>
-            </div>
-            <button 
-              onClick={() => logout()}
-              className="p-2 text-slate-500 hover:text-red-400 hover:bg-red-400/10 rounded-lg transition-all duration-200"
-            >
-              <LogOut size={18} />
-            </button>
-          </div>
-        </div>
-      </aside>
-
-      {/* Main Content Area */}
-      <main className="flex-1 overflow-y-auto p-8 relative">
-        <div className="max-w-6xl mx-auto">
-          <header className="flex justify-between items-start mb-12">
+        {/* Main Content */}
+        <main className={`flex-1 p-4 md:p-8 bg-surface-dim transition-all duration-300 lg:ml-64`}>
+          <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-10">
             <div>
-              <h2 className="text-3xl font-bold text-white mb-2">
-                Bienvenido, {dbUser?.nombre || "Daniel"}
-              </h2>
-              <p className="text-slate-400">
-                Tu sistema de IoT está operativo y protegido.
-              </p>
+              <h1 className="font-headline text-3xl md:text-4xl font-bold tracking-tight text-on-surface">Panel de Control IoT</h1>
+              <p className="text-on-surface-variant mt-2 font-body text-sm md:text-base">Orquestación de ecosistemas inteligentes en tiempo real.</p>
             </div>
-            <div className="flex gap-4">
-              <div className="glass px-4 py-2 rounded-xl flex items-center gap-2 border-green-500/20">
-                <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                <span className="text-xs font-bold text-green-500 uppercase">Sistema Online</span>
-              </div>
-            </div>
+            
+            <button className="flex items-center gap-2 bg-primary-container text-primary-fixed px-5 py-2.5 rounded-lg hover:bg-on-primary-fixed-variant transition-colors group cursor-pointer">
+              <span className="material-symbols-outlined text-lg">widgets</span>
+              <span className="font-label text-sm font-semibold">Gestionar Widgets</span>
+            </button>
           </header>
 
-          {/* Grid de Cards (Placeholder para el futuro) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="glass-card p-6 h-48 rounded-3xl flex items-center justify-center text-slate-600 border-dashed">
-              Próximamente: Estado Alarma
+          <div className="grid grid-cols-12 gap-8">
+            {/* Widgets Grid */}
+            <div className="col-span-12 xl:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+              <WidgetAlarma />
+              <WidgetPortones />
+              
+              {/* Add Widget placeholder */}
+              <button className="border border-dashed border-outline-variant/30 rounded-2xl p-6 flex flex-col items-center justify-center gap-3 group hover:border-primary/50 transition-all duration-300 min-h-[160px] cursor-pointer">
+                <div className="h-10 w-10 rounded-full border border-outline-variant flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-all">
+                  <span className="material-symbols-outlined text-outline-variant group-hover:text-on-primary text-sm">add</span>
+                </div>
+                <span className="text-on-surface-variant group-hover:text-primary transition-colors font-montserrat font-medium text-xs">Nuevo Widget</span>
+              </button>
             </div>
-            <div className="glass-card p-6 h-48 rounded-3xl flex items-center justify-center text-slate-600 border-dashed">
-              Próximamente: Cámaras / Monitor
-            </div>
-            <div className="glass-card p-6 h-48 rounded-3xl flex items-center justify-center text-slate-600 border-dashed">
-              Próximamente: Control de Acceso
+
+            {/* Right Rail: Activity/Alerts */}
+            <div className="col-span-12 xl:col-span-4 flex flex-col gap-6">
+              <ActivityRail />
             </div>
           </div>
-        </div>
-      </main>
+
+          <FooterStats />
+        </main>
+      </div>
     </div>
   );
 }
+

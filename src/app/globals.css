@@ -1,54 +1,94 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
 :root {
-  --background: #0A0A0B;
-  --foreground: #F4F4F5;
+  --background: #131313;
+  --on-background: #e5e2e1;
+  --surface: #131313;
+  --surface-dim: #131313;
+  --surface-bright: #393939;
+  --surface-container-lowest: #0e0e0e;
+  --surface-container-low: #1c1b1b;
+  --surface-container: #201f1f;
+  --surface-container-high: #2a2a2a;
+  --surface-container-highest: #353534;
+  --on-surface: #e5e2e1;
+  --on-surface-variant: #c6c5d4;
+  --outline: #908f9d;
+  --outline-variant: #454652;
+  --primary: #b0c6ff;
+  --on-primary: #002d6f;
+  --primary-container: #002c6e;
+  --on-primary-container: #6b95f3;
+  --primary-fixed: #d9e2ff;
+  --on-primary-fixed: #001945;
+  --secondary: #88d982;
+  --on-secondary: #003909;
+  --secondary-container: #1e5a1b;
+  --on-secondary-container: #81d27c;
+  --tertiary: #ffb4ac;
+  --on-tertiary: #690007;
+  --tertiary-container: #670007;
+  --on-tertiary-container: #ff635a;
+  --error: #ffb4ab;
+  --on-error: #690005;
+  --error-container: #93000a;
+  --on-error-container: #ffdad6;
 }
 
+@theme {
+  --color-background: var(--background);
+  --color-on-background: var(--on-background);
+  --color-surface: var(--surface);
+  --color-surface-dim: var(--surface-dim);
+  --color-surface-bright: var(--surface-bright);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container: var(--surface-container);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+  --color-on-surface: var(--on-surface);
+  --color-on-surface-variant: var(--on-surface-variant);
+  --color-outline: var(--outline);
+  --color-outline-variant: var(--outline-variant);
+  --color-primary: var(--primary);
+  --color-on-primary: var(--on-primary);
+  --color-primary-container: var(--primary-container);
+  --color-on-primary-container: var(--on-primary-container);
+  --color-primary-fixed: var(--primary-fixed);
+  --color-on-primary-fixed: var(--on-primary-fixed);
+  --color-secondary: var(--secondary);
+  --color-on-secondary: var(--on-secondary);
+  --color-secondary-container: var(--secondary-container);
+  --color-on-secondary-container: var(--on-secondary-container);
+  --color-tertiary: var(--tertiary);
+  --color-on-tertiary: var(--on-tertiary);
+  --color-tertiary-container: var(--tertiary-container);
+  --color-on-tertiary-container: var(--on-tertiary-container);
+  --color-error: var(--error);
+  --color-on-error: var(--on-error);
+  --color-error-container: var(--error-container);
+  --color-on-error-container: var(--on-error-container);
+
+  --font-family-headline: var(--font-space), "Space Grotesk", sans-serif;
+  --font-family-body: var(--font-manrope), "Manrope", sans-serif;
+  --font-family-label: var(--font-inter), "Inter", sans-serif;
+  --font-family-montserrat: var(--font-montserrat), "Montserrat", sans-serif;
+  --font-family-poppins: var(--font-poppins), "Poppins", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: var(--font-poppins), sans-serif;
+  color: var(--on-surface);
+  background-color: var(--background);
+  font-family: var(--font-family-body);
   overflow-x: hidden;
 }
 
-/* Estilos Horizon v2.4.0 */
-
-.glass-card {
-  backdrop-filter: blur(40px);
-  background-color: rgba(10, 10, 11, 0.8);
-  border: 1px solid rgba(39, 39, 42, 0.3);
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-.atmosfera-sintetica {
-  background: radial-gradient(circle at 0% 0%, rgba(26, 35, 126, 0.12) 0%, transparent 50%), 
-              radial-gradient(circle at 100% 100%, rgba(0, 0, 0, 0.8) 0%, transparent 50%);
-}
-
-.image-overlay {
-  background: linear-gradient(to right, rgba(10, 10, 11, 0) 0%, rgba(10, 10, 11, 1) 100%);
-}
-
-.grain {
-  background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuBq0rvlFIC3oFG_SHOAgLqREbRRjgdg6Wx3VOszPgtrveFQlDCNkP6vxWPXtQrmp0KVTtpTBf4E-EpV0V-R_RDYbOlDadFU-a3GupLRS5xrzOe0Ty5-x6RvfFqaLKPBZxfv04dNcRyPlvUCOm93_kF947ZlmEGfTa3OkU0dlfHUrlYudsEHAgbhct43m6bODk72qgpF1j3ti5q3eUpL7LHBLlndI1u_HVWnqnEeHhPvGGWmLdWMAx2twa9wn1PFyBhb5XUSEAe7KTmR);
-  opacity: 0.03;
-}
-
-/* Base Styles */
-@layer base {
-  input:focus {
-    box-shadow: 0 0 0 2px rgba(26, 35, 126, 0.3);
-  }
-}
-
-.glow-mesh {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background: 
-    radial-gradient(circle at 20% 30%, rgba(26, 35, 126, 0.1) 0%, transparent 40%),
-    radial-gradient(circle at 80% 70%, rgba(26, 35, 126, 0.05) 0%, transparent 40%);
-}

@@ -28,9 +28,9 @@ export const AuthShell: React.FC<AuthShellProps> = ({
         .auth-left { display: none; width: 60%; position: relative; flex-direction: column; justify-content: space-between; background-color: #070a13; }
         .auth-right { flex: 1; position: relative; display: flex; flex-direction: column; justify-content: center; background-color: #0a0a0c; z-index: 20; overflow-y: auto; overflow-x: hidden; }
         .auth-form-container { width: 100%; max-width: ${maxWidth}; margin: 0 auto; padding: 2rem; box-sizing: border-box; position: relative; z-index: 10; }
-        .auth-mobile-logo { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 1rem; margin-bottom: 3rem; text-align: center; }
-        .auth-mobile-logo img { width: 48px !important; height: 48px !important; }
-        .auth-mobile-logo span { fontSize: 1.5rem !important; }
+        .auth-mobile-logo { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: 1.25rem; margin-bottom: 3.5rem; text-align: center; }
+        .auth-mobile-logo img { width: 56px !important; height: 56px !important; }
+        .auth-mobile-logo span { fontSize: 2rem !important; }
         
         .auth-footer { margin-top: 2.5rem; border-top: 1px solid rgba(31, 41, 55, 0.3); padding-top: 1.25rem; display: flex; justify-content: center; align-items: center; gap: 0.4rem; }
 

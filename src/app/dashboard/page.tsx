@@ -5,24 +5,21 @@ import { WidgetAlarma } from "./_components/WidgetAlarma";
 import { WidgetPortones } from "./_components/WidgetPortones";
 import { ActivityRail } from "./_components/ActivityRail";
 import { FooterStats } from "./_components/FooterStats";
+import { PageHeader } from "./_components/PageHeader";
 
 export default function DashboardPage() {
   return (
     <>
-      <header className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-10">
-        <div>
-          <h1 className="font-headline text-3xl md:text-4xl font-bold tracking-tight text-on-surface">
-            Panel de Control IoT
-          </h1>
-          <p className="text-on-surface-variant mt-2 font-body text-sm md:text-base">
-            Orquestación de ecosistemas inteligentes en tiempo real.
-          </p>
-        </div>
-        <button className="flex items-center gap-2 bg-primary-container text-primary-fixed px-5 py-2.5 rounded-lg hover:bg-on-primary-fixed-variant transition-colors group cursor-pointer">
-          <span className="material-symbols-outlined text-lg">widgets</span>
-          <span className="font-label text-sm font-semibold">Gestionar Widgets</span>
-        </button>
-      </header>
+      <PageHeader 
+        title="Panel de Control IoT"
+        subtitle="Orquestación de ecosistemas inteligentes en tiempo real."
+        action={
+          <button className="flex items-center gap-2 bg-primary-container text-on-primary-container px-5 py-2.5 rounded-xl hover:opacity-90 transition-opacity group cursor-pointer shadow-sm border border-outline-variant/10">
+            <span className="material-symbols-outlined text-lg">widgets</span>
+            <span className="font-label text-sm font-semibold">Gestionar Widgets</span>
+          </button>
+        }
+      />
 
       <div className="grid grid-cols-12 gap-8">
         {/* Widgets Grid */}

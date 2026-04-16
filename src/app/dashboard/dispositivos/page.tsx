@@ -8,6 +8,7 @@ import { useAlarmaData } from '@/hooks/useAlarmaData';
 import { usePortonData } from '@/hooks/usePortonData';
 import { isDeviceOnline, formatTimeAgo, getAlarmStateLabel, getWifiQuality } from '@/lib/utils/deviceUtils';
 import { ConfirmActionModal } from '@/app/dashboard/_components/ConfirmActionModal';
+import { PageHeader } from '@/app/dashboard/_components/PageHeader';
 import type { AlarmDevice, PortonDevice, DeviceType } from '@/lib/types/devices';
 
 // ─── Payload inicial para nuevos dispositivos (mismo que versión v1) ──────────
@@ -72,7 +73,7 @@ function AlarmCard({ alarm, dni, onDelete, canDelete }: {
   const wifiQuality = getWifiQuality(alarm.wifi_rssi ?? -90);
 
   return (
-    <div className="glass-panel rounded-2xl p-5 border border-white/5 flex flex-col gap-3 hover:border-white/10 transition-all">
+    <div className="glass-panel rounded-2xl p-5 border border-outline-variant/10 flex flex-col justify-between hover:border-outline-variant/30 transition-all shadow-sm h-[260px]">
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
           <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${
@@ -107,10 +108,10 @@ function AlarmCard({ alarm, dni, onDelete, canDelete }: {
         {canDelete && (
           <button
             onClick={onDelete}
-            className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-full text-on-surface-variant/40 hover:bg-red-500/10 hover:text-red-500 transition-all group"
             title="Eliminar dispositivo"
           >
-            <span className="material-symbols-outlined text-sm">delete</span>
+            <span className="material-symbols-outlined text-[18px] group-hover:scale-110 transition-transform">delete</span>
           </button>
         )}
       </div>
@@ -160,7 +161,7 @@ function PortonCard({ porton, dni, onDelete, canDelete }: {
   const wifiQuality = getWifiQuality(porton.wifi_rssi ?? -90);
 
   return (
-    <div className="glass-panel rounded-2xl p-5 border border-white/5 flex flex-col gap-3 hover:border-white/10 transition-all">
+    <div className="glass-panel rounded-2xl p-5 border border-outline-variant/10 flex flex-col justify-between hover:border-outline-variant/30 transition-all shadow-sm h-[260px]">
       <div className="flex items-start justify-between">
         <div className="flex items-center gap-3">
           <div className={`w-11 h-11 rounded-xl flex items-center justify-center ${
@@ -192,9 +193,10 @@ function PortonCard({ porton, dni, onDelete, canDelete }: {
         {canDelete && (
           <button
             onClick={onDelete}
-            className="p-2 rounded-lg bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-full text-on-surface-variant/40 hover:bg-red-500/10 hover:text-red-500 transition-all group"
+            title="Eliminar dispositivo"
           >
-            <span className="material-symbols-outlined text-sm">delete</span>
+            <span className="material-symbols-outlined text-[18px] group-hover:scale-110 transition-transform">delete</span>
           </button>
         )}
       </div>
@@ -275,18 +277,18 @@ function AddDeviceModal({ onClose, onAdd, dni }: {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-[#0f0f14] border border-white/10 rounded-2xl shadow-2xl w-full max-w-md p-6">
+    <div className="fixed inset-0 bg-background/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-surface border border-outline-variant/10 rounded-2xl shadow-2xl w-full max-w-md p-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-bold text-white">Nuevo Dispositivo</h2>
-          <button onClick={onClose} className="text-neutral-500 hover:text-white transition-colors">
+          <h2 className="text-lg font-bold text-on-surface">Nuevo Dispositivo</h2>
+          <button onClick={onClose} className="text-on-surface-variant hover:text-on-surface transition-colors">
             <span className="material-symbols-outlined">close</span>
           </button>
         </div>
 
         {/* Tipo de dispositivo */}
         <div className="mb-5">
-          <label className="block text-xs text-neutral-500 uppercase tracking-wider mb-3">
+          <label className="block text-xs text-on-surface-variant uppercase tracking-wider mb-3">
             Tipo de Dispositivo
           </label>
           <div className="grid grid-cols-2 gap-3">
@@ -295,13 +297,13 @@ function AddDeviceModal({ onClose, onAdd, dni }: {
               className={`flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all ${
                 deviceType === 'alarma'
                   ? 'border-secondary/50 bg-secondary/10'
-                  : 'border-white/5 hover:border-white/10 bg-white/3'
+                  : 'border-outline-variant/10 hover:border-outline-variant/30 bg-surface-container-high/30'
               }`}
             >
               <span className={`material-symbols-outlined text-2xl ${
-                deviceType === 'alarma' ? 'text-secondary' : 'text-neutral-500'
+                deviceType === 'alarma' ? 'text-secondary' : 'text-on-surface-variant'
               }`} style={{ fontVariationSettings: "'FILL' 1" }}>shield_with_heart</span>
-              <span className={`text-sm font-semibold ${deviceType === 'alarma' ? 'text-secondary' : 'text-neutral-400'}`}>
+              <span className={`text-sm font-semibold ${deviceType === 'alarma' ? 'text-secondary' : 'text-on-surface-variant'}`}>
                 Alarma
               </span>
             </button>
@@ -310,13 +312,13 @@ function AddDeviceModal({ onClose, onAdd, dni }: {
               className={`flex flex-col items-center gap-2 p-4 rounded-xl border-2 transition-all ${
                 deviceType === 'porton'
                   ? 'border-primary/50 bg-primary/10'
-                  : 'border-white/5 hover:border-white/10 bg-white/3'
+                  : 'border-outline-variant/10 hover:border-outline-variant/30 bg-surface-container-high/30'
               }`}
             >
               <span className={`material-symbols-outlined text-2xl ${
-                deviceType === 'porton' ? 'text-primary' : 'text-neutral-500'
+                deviceType === 'porton' ? 'text-primary' : 'text-on-surface-variant'
               }`} style={{ fontVariationSettings: "'FILL' 1" }}>garage</span>
-              <span className={`text-sm font-semibold ${deviceType === 'porton' ? 'text-primary' : 'text-neutral-400'}`}>
+              <span className={`text-sm font-semibold ${deviceType === 'porton' ? 'text-primary' : 'text-on-surface-variant'}`}>
                 Portón
               </span>
             </button>
@@ -325,7 +327,7 @@ function AddDeviceModal({ onClose, onAdd, dni }: {
 
         {/* Alias */}
         <div className="mb-5">
-          <label className="block text-xs text-neutral-500 uppercase tracking-wider mb-2">
+          <label className="block text-xs text-on-surface-variant uppercase tracking-wider mb-2">
             Alias del Dispositivo
           </label>
           <input
@@ -333,10 +335,10 @@ function AddDeviceModal({ onClose, onAdd, dni }: {
             value={alias}
             onChange={(e) => setAlias(e.target.value)}
             placeholder="Ej: casa, costa, cochera"
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white placeholder-neutral-600 outline-none focus:border-primary/50 transition-colors text-sm"
+            className="w-full bg-surface-container-high border border-outline-variant/30 rounded-xl px-4 py-3 text-on-surface placeholder:text-on-surface-variant/50 outline-none focus:border-primary/50 transition-colors text-sm"
             onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
           />
-          <p className="text-[10px] text-neutral-600 mt-1.5">
+          <p className="text-[10px] text-on-surface-variant/70 mt-1.5">
             Este alias se usará para identificar el dispositivo en el sistema (solo letras/números).
           </p>
         </div>
@@ -397,32 +399,32 @@ function LinkDniSection() {
   };
 
   return (
-    <div className="glass-panel rounded-2xl p-8 border border-white/10 flex flex-col items-center text-center gap-6 max-w-lg mx-auto mt-10">
+    <div className="glass-panel rounded-2xl p-8 border border-outline-variant/10 flex flex-col items-center text-center gap-6 max-w-lg mx-auto mt-10">
       <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center">
         <span className="material-symbols-outlined text-3xl text-primary">person_search</span>
       </div>
       <div>
-        <h2 className="text-xl font-bold text-white mb-2">Perfil no vinculado</h2>
-        <p className="text-neutral-400 text-sm">
+        <h2 className="text-xl font-bold text-on-surface mb-2">Perfil no vinculado</h2>
+        <p className="text-on-surface-variant text-sm">
           No encontramos un perfil de SQL vinculado a tu cuenta de Firebase ({user?.email}). 
           Si ya sos cliente de AyresIoT, el sistema debería vincularte automáticamente al refrescar.
         </p>
       </div>
 
       <div className="w-full space-y-3">
-        <p className="text-[10px] text-neutral-500 uppercase tracking-widest font-bold">O vinculá manualmente con tu DNI</p>
+        <p className="text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">O vinculá manualmente con tu DNI</p>
         <div className="flex gap-2">
           <input
             type="text"
             value={dni}
             onChange={(e) => setDni(e.target.value)}
             placeholder="Tu DNI sin puntos"
-            className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white outline-none focus:border-primary/50 transition-colors"
+            className="flex-1 bg-surface-container-high border border-outline-variant/30 rounded-xl px-4 py-2.5 text-on-surface outline-none focus:border-primary/50 transition-colors"
           />
           <button
             onClick={handleLink}
             disabled={loading || !dni.trim()}
-            className="px-6 py-2.5 bg-primary rounded-xl text-white font-semibold text-sm hover:surface-variant transition-all disabled:opacity-50"
+            className="px-6 py-2.5 bg-primary rounded-xl text-on-primary font-semibold text-sm hover:bg-primary/90 transition-all disabled:opacity-50"
           >
             Vincular
           </button>
@@ -510,28 +512,26 @@ export default function DispositivosPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-white font-poppins">Mis Dispositivos</h1>
-          <p className="text-neutral-500 text-sm mt-0.5">
-            {alarms.length + portones.length} dispositivo{alarms.length + portones.length !== 1 ? 's' : ''} registrado{alarms.length + portones.length !== 1 ? 's' : ''}
-          </p>
-        </div>
-        {canManage && (
-          <button
-            onClick={() => setShowModal(true)}
-            className="flex items-center gap-2 px-4 py-2.5 bg-primary rounded-xl text-white text-sm font-semibold hover:bg-primary/80 transition-all active:scale-95"
-          >
-            <span className="material-symbols-outlined text-base">add_circle</span>
-            Agregar
-          </button>
-        )}
-      </div>
+      {/* Header Estándar */}
+      <PageHeader
+        title="Mis Dispositivos"
+        subtitle={`${alarms.length + portones.length} dispositivo${alarms.length + portones.length !== 1 ? 's' : ''} registrado${alarms.length + portones.length !== 1 ? 's' : ''}`}
+        action={
+          canManage ? (
+            <button
+              onClick={() => setShowModal(true)}
+              className="flex items-center gap-2 px-4 py-2.5 bg-primary rounded-xl text-on-primary text-sm font-semibold hover:opacity-90 transition-all active:scale-95 shadow-sm"
+            >
+              <span className="material-symbols-outlined text-base">add_circle</span>
+              Agregar
+            </button>
+          ) : undefined
+        }
+      />
 
       {/* Loading */}
       {loading && (
-        <div className="flex items-center justify-center py-16 gap-3 text-neutral-500">
+        <div className="flex items-center justify-center py-16 gap-3 text-on-surface-variant">
           <span className="material-symbols-outlined animate-spin text-xl">progress_activity</span>
           <span>Cargando dispositivos...</span>
         </div>
@@ -539,11 +539,11 @@ export default function DispositivosPage() {
 
       {/* Sin dispositivos */}
       {!loading && alarms.length === 0 && portones.length === 0 && (
-        <div className="glass-panel rounded-2xl p-12 flex flex-col items-center gap-4 border border-dashed border-white/10 text-center">
-          <span className="material-symbols-outlined text-4xl text-neutral-600">devices_other</span>
+        <div className="glass-panel rounded-2xl p-12 flex flex-col items-center gap-4 border border-dashed border-outline-variant/20 text-center">
+          <span className="material-symbols-outlined text-4xl text-on-surface-variant/50">devices_other</span>
           <div>
-            <p className="text-neutral-400 font-semibold">Sin dispositivos registrados</p>
-            <p className="text-neutral-600 text-sm mt-1">
+            <p className="text-on-surface-variant font-semibold">Sin dispositivos registrados</p>
+            <p className="text-on-surface-variant/70 text-sm mt-1">
               {canManage ? 'Hacé click en "Agregar" para configurar tu primer dispositivo.' : 'Contactá a tu administrador para registrar dispositivos.'}
             </p>
           </div>
@@ -563,7 +563,7 @@ export default function DispositivosPage() {
         <div>
           <div className="flex items-center gap-2 mb-3">
             <span className="material-symbols-outlined text-secondary text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>shield_with_heart</span>
-            <h2 className="text-sm font-bold text-neutral-400 uppercase tracking-widest">
+            <h2 className="text-sm font-bold text-on-surface-variant uppercase tracking-widest">
               Alarmas ({alarms.length})
             </h2>
           </div>
@@ -586,7 +586,7 @@ export default function DispositivosPage() {
         <div>
           <div className="flex items-center gap-2 mb-3">
             <span className="material-symbols-outlined text-primary text-lg" style={{ fontVariationSettings: "'FILL' 1" }}>garage</span>
-            <h2 className="text-sm font-bold text-neutral-400 uppercase tracking-widest">
+            <h2 className="text-sm font-bold text-on-surface-variant uppercase tracking-widest">
               Portones ({portones.length})
             </h2>
           </div>

@@ -22,7 +22,7 @@ function NavItem({ icon, label, path, currentPath, onClick, fillIcon }: NavItemP
       className={`flex items-center gap-4 px-4 py-3 rounded-lg transition-all duration-300 w-full text-left group
         ${isActive
           ? "bg-primary/10 text-primary border-r-2 border-primary"
-          : "text-neutral-500 hover:text-neutral-200 hover:bg-neutral-800/40"
+          : "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/40"
         }`}
     >
       <span
@@ -63,19 +63,19 @@ export function SideNavBar({ isOpen, onClose }: SideNavBarProps) {
     <>
       {/* Backdrop for mobile */}
       <div
-        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300 ${
+        className={`fixed inset-0 bg-background/60 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300 ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={onClose}
       />
 
-      <aside className={`fixed left-0 top-0 h-full w-64 bg-[#131313] flex flex-col py-8 gap-2 font-body text-sm font-medium border-r border-outline-variant/10 overflow-y-auto z-50 transition-transform duration-300 lg:top-16 lg:h-[calc(100vh-64px)] lg:translate-x-0 ${
+      <aside className={`fixed left-0 top-0 h-full w-64 bg-surface flex flex-col py-8 gap-2 font-body text-sm font-medium border-r border-outline-variant/10 overflow-y-auto z-50 transition-transform duration-300 lg:top-16 lg:h-[calc(100vh-64px)] lg:translate-x-0 ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       }`}>
         {/* Close button for mobile */}
         <button
           onClick={onClose}
-          className="lg:hidden absolute top-4 right-4 p-2 text-neutral-400 hover:text-white transition-colors"
+          className="lg:hidden absolute top-4 right-4 p-2 text-on-surface-variant hover:text-on-surface transition-colors"
         >
           <span className="material-symbols-outlined">close</span>
         </button>
@@ -132,8 +132,8 @@ export function SideNavBar({ isOpen, onClose }: SideNavBarProps) {
         </nav>
 
         {/* Footer */}
-        <div className="mt-auto px-4 pt-4 border-t border-white/5">
-          <p className="text-[10px] text-neutral-700 text-center uppercase tracking-widest">AyresIoT v2.0</p>
+        <div className="mt-auto px-4 pt-4 border-t border-outline-variant/10">
+          <p className="text-[10px] text-on-surface-variant/50 text-center uppercase tracking-widest">AyresIoT v2.0</p>
         </div>
       </aside>
     </>

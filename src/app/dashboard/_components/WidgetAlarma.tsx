@@ -26,7 +26,7 @@ function AlarmCard({ alarm, dni }: { alarm: AlarmDevice; dni: string }) {
   };
 
   return (
-    <div className="glass-panel rounded-2xl p-5 flex flex-col gap-4 border border-white/5 shadow-2xl relative overflow-hidden">
+    <div className="glass-panel rounded-2xl p-5 flex flex-col justify-between border border-outline-variant/10 shadow-xl relative overflow-hidden h-[260px]">
       {/* Indicador de alarma disparada */}
       {alarm.disparada && (
         <div className="absolute inset-0 border-2 border-red-500 rounded-2xl animate-pulse pointer-events-none" />

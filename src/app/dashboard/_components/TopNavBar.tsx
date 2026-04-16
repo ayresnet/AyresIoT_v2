@@ -7,6 +7,8 @@ interface TopNavBarProps {
   onMenuClick: () => void;
 }
 
+import { ThemeToggle } from "./ThemeToggle";
+
 export function TopNavBar({ onMenuClick }: TopNavBarProps) {
   const { user, dbUser, logout } = useAuth();
   
@@ -18,11 +20,11 @@ export function TopNavBar({ onMenuClick }: TopNavBarProps) {
       : "JD";
 
   return (
-    <header className="fixed top-0 w-full z-50 bg-[#131313] bg-neutral-900/50 backdrop-blur-xl flex justify-between items-center px-4 md:px-6 h-16 border-b border-outline-variant/10">
+    <header className="fixed top-0 w-full z-50 bg-background/50 backdrop-blur-xl flex justify-between items-center px-4 md:px-6 h-16 border-b border-outline-variant/10">
       <div className="flex items-center gap-2 md:gap-8">
         <button 
           onClick={onMenuClick}
-          className="lg:hidden p-2 rounded-full text-neutral-400 hover:bg-neutral-800/50 transition-colors duration-200"
+          className="lg:hidden p-2 rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200"
         >
           <span className="material-symbols-outlined">menu</span>
         </button>
@@ -46,8 +48,9 @@ export function TopNavBar({ onMenuClick }: TopNavBarProps) {
         </div>
       </div>
       
-      <div className="flex items-center gap-4">
-        <button className="p-2 rounded-full text-neutral-400 hover:bg-neutral-800/50 transition-colors duration-200">
+      <div className="flex items-center gap-3 md:gap-4">
+        <ThemeToggle />
+        <button className="p-2 rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200">
           <span className="material-symbols-outlined">notifications</span>
         </button>
         <div className="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center text-primary-fixed font-bold text-xs">
@@ -55,10 +58,10 @@ export function TopNavBar({ onMenuClick }: TopNavBarProps) {
         </div>
         <button 
           onClick={() => logout()}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-neutral-400 hover:bg-neutral-800/50 transition-colors duration-200 group"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 group cursor-pointer"
         >
           <span className="material-symbols-outlined group-hover:text-error transition-colors">logout</span>
-          <span className="text-sm font-medium">Cerrar Sesión</span>
+          <span className="hidden sm:inline text-sm font-medium">Cerrar Sesión</span>
         </button>
       </div>
     </header>

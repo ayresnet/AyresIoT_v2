@@ -20,16 +20,16 @@ export function ConfirmActionModal({
   isLoading = false
 }: ConfirmActionModalProps) {
   return (
-    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-[#0f0f14] border border-red-500/20 rounded-2xl shadow-2xl w-full max-w-sm p-6 transform transition-all animate-in fade-in zoom-in duration-200">
+    <div className="fixed inset-0 bg-background/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-surface border border-red-500/20 rounded-2xl shadow-2xl w-full max-w-sm p-6 transform transition-all animate-in fade-in zoom-in duration-200">
         <div className="flex items-center gap-4 mb-4">
           <div className="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-red-500 text-2xl">warning</span>
           </div>
-          <h2 className="text-lg font-bold text-white">{title}</h2>
+          <h2 className="text-lg font-bold text-on-surface">{title}</h2>
         </div>
         
-        <p className="text-neutral-400 text-sm mb-6 leading-relaxed">
+        <p className="text-on-surface-variant text-sm mb-6 leading-relaxed">
           {message}
         </p>
 
@@ -37,7 +37,7 @@ export function ConfirmActionModal({
           <button
             onClick={onCancel}
             disabled={isLoading}
-            className="flex-1 py-2.5 rounded-xl border border-white/5 bg-white/5 text-white font-medium text-sm hover:bg-white/10 transition-colors disabled:opacity-50"
+            className="flex-1 py-2.5 rounded-xl border border-outline-variant/30 bg-surface-container text-on-surface font-medium text-sm hover:bg-surface-container-high transition-colors disabled:opacity-50"
           >
             {cancelText}
           </button>

@@ -9,6 +9,7 @@ import { usePortonData } from '@/hooks/usePortonData';
 import { isDeviceOnline, formatTimeAgo, getAlarmStateLabel, getWifiQuality } from '@/lib/utils/deviceUtils';
 import { ConfirmActionModal } from '@/app/dashboard/_components/ConfirmActionModal';
 import { PageHeader } from '@/app/dashboard/_components/PageHeader';
+import { DevicePlanBadge } from '@/app/dashboard/_components/DevicePlanBadge';
 import type { AlarmDevice, PortonDevice, DeviceType } from '@/lib/types/devices';
 
 // ─── Payload inicial para nuevos dispositivos (mismo que versión v1) ──────────
@@ -90,11 +91,7 @@ function AlarmCard({ alarm, dni, onDelete, canDelete }: {
               <h3 className="font-semibold text-on-surface text-sm uppercase tracking-wide">
                 Alarma {alarm.id}
               </h3>
-              <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase ${
-                alarm.config?.plan === 'plus'
-                  ? 'bg-purple-500/20 text-purple-300'
-                  : 'bg-white/5 text-neutral-400'
-              }`}>{alarm.config?.plan ?? 'free'}</span>
+              <DevicePlanBadge plan={alarm.config?.plan} />
             </div>
             <div className="flex items-center gap-1.5">
               <div className={`w-1.5 h-1.5 rounded-full ${online ? 'bg-secondary animate-pulse' : 'bg-red-500'}`} />
@@ -117,19 +114,19 @@ function AlarmCard({ alarm, dni, onDelete, canDelete }: {
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-3 gap-2 pt-1 border-t border-white/5">
+      <div className="grid grid-cols-3 gap-2 pt-1 border-t border-outline-variant/10">
         <div className="text-center">
-          <p className="text-[9px] text-neutral-600 uppercase tracking-wider mb-0.5">WiFi</p>
+          <p className="text-[9px] text-on-surface-variant/60 uppercase tracking-wider mb-0.5">WiFi</p>
           <p className={`text-xs font-bold ${wifiQuality.color}`}>{alarm.wifi_rssi ?? '--'} dBm</p>
           <p className={`text-[9px] ${wifiQuality.color}`}>{wifiQuality.label}</p>
         </div>
         <div className="text-center">
-          <p className="text-[9px] text-neutral-600 uppercase tracking-wider mb-0.5">Firmware</p>
-          <p className="text-xs font-bold text-neutral-300">{alarm.config?.firmware_version ?? '--'}</p>
+          <p className="text-[9px] text-on-surface-variant/60 uppercase tracking-wider mb-0.5">Firmware</p>
+          <p className="text-xs font-bold text-on-surface">{alarm.config?.firmware_version ?? '--'}</p>
         </div>
         <div className="text-center">
-          <p className="text-[9px] text-neutral-600 uppercase tracking-wider mb-0.5">Contacto</p>
-          <p className="text-xs font-bold text-neutral-300">{formatTimeAgo(alarm.last_heartbeat)}</p>
+          <p className="text-[9px] text-on-surface-variant/60 uppercase tracking-wider mb-0.5">Contacto</p>
+          <p className="text-xs font-bold text-on-surface">{formatTimeAgo(alarm.last_heartbeat)}</p>
         </div>
       </div>
 
@@ -137,8 +134,10 @@ function AlarmCard({ alarm, dni, onDelete, canDelete }: {
       {alarm.zonas && (
         <div className="grid grid-cols-4 gap-1">
           {alarm.zonas.slice(0, 4).map((zona, idx) => (
-            <div key={idx} className={`text-center py-1 rounded-lg text-[9px] font-bold uppercase ${
-              zona === 'abierta' ? 'bg-red-500/20 text-red-400' : 'bg-white/5 text-neutral-600'
+            <div key={idx} className={`text-center py-1.5 rounded-lg text-[9px] font-bold uppercase transition-colors ${
+              zona === 'abierta' 
+                ? 'bg-red-500/10 text-red-500 dark:bg-red-500/20 dark:text-red-400 border border-red-500/20' 
+                : 'bg-surface-container-high text-on-surface-variant/40 border border-outline-variant/5'
             }`}>
               Z{idx + 1}
             </div>
@@ -176,11 +175,7 @@ function PortonCard({ porton, dni, onDelete, canDelete }: {
               <h3 className="font-semibold text-on-surface text-sm uppercase tracking-wide">
                 Portón {porton.id}
               </h3>
-              <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase ${
-                porton.config?.plan === 'plus'
-                  ? 'bg-purple-500/20 text-purple-300'
-                  : 'bg-white/5 text-neutral-400'
-              }`}>{porton.config?.plan ?? 'free'}</span>
+              <DevicePlanBadge plan={porton.config?.plan} />
             </div>
             <div className="flex items-center gap-1.5">
               <div className={`w-1.5 h-1.5 rounded-full ${online ? 'bg-secondary animate-pulse' : 'bg-red-500'}`} />
@@ -204,10 +199,10 @@ function PortonCard({ porton, dni, onDelete, canDelete }: {
       {/* Portones */}
       <div className="flex gap-2">
         {porton.porton1 && (
-          <div className={`flex-1 text-center py-2 rounded-xl border ${
+          <div className={`flex-1 text-center py-2 rounded-xl border transition-colors ${
             porton.porton1.estado === 'abierto'
-              ? 'border-red-500/30 bg-red-500/10'
-              : 'border-white/5 bg-white/3'
+              ? 'border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400'
+              : 'border-outline-variant/10 bg-surface-container text-on-surface-variant'
           }`}>
             <p className="text-[9px] text-neutral-500 uppercase">P1</p>
             <p className={`text-xs font-bold uppercase ${
@@ -216,10 +211,10 @@ function PortonCard({ porton, dni, onDelete, canDelete }: {
           </div>
         )}
         {porton.porton2 && (
-          <div className={`flex-1 text-center py-2 rounded-xl border ${
+          <div className={`flex-1 text-center py-2 rounded-xl border transition-colors ${
             porton.porton2.estado === 'abierto'
-              ? 'border-red-500/30 bg-red-500/10'
-              : 'border-white/5 bg-white/3'
+              ? 'border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400'
+              : 'border-outline-variant/10 bg-surface-container text-on-surface-variant'
           }`}>
             <p className="text-[9px] text-neutral-500 uppercase">P2</p>
             <p className={`text-xs font-bold uppercase ${
@@ -236,12 +231,12 @@ function PortonCard({ porton, dni, onDelete, canDelete }: {
           <p className={`text-xs font-bold ${wifiQuality.color}`}>{porton.wifi_rssi ?? '--'} dBm</p>
         </div>
         <div className="text-center">
-          <p className="text-[9px] text-neutral-600 uppercase tracking-wider mb-0.5">Firmware</p>
-          <p className="text-xs font-bold text-neutral-300">{porton.config?.firmware_version ?? '--'}</p>
+          <p className="text-[9px] text-on-surface-variant/60 uppercase tracking-wider mb-0.5">Firmware</p>
+          <p className="text-xs font-bold text-on-surface">{porton.config?.firmware_version ?? '--'}</p>
         </div>
         <div className="text-center">
-          <p className="text-[9px] text-neutral-600 uppercase tracking-wider mb-0.5">Contacto</p>
-          <p className="text-xs font-bold text-neutral-300">{formatTimeAgo(porton.last_heartbeat)}</p>
+          <p className="text-[9px] text-on-surface-variant/60 uppercase tracking-wider mb-0.5">Contacto</p>
+          <p className="text-xs font-bold text-on-surface">{formatTimeAgo(porton.last_heartbeat)}</p>
         </div>
       </div>
     </div>

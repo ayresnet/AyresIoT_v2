@@ -36,10 +36,10 @@ export function TopNavBar({ onMenuClick }: TopNavBarProps) {
           <div className="flex items-center gap-2">
             <img 
               alt="AyresNet Logo" 
-              className="h-8 w-8 object-contain" 
+              className="h-7 w-7 md:h-8 md:w-8 object-contain" 
               src="https://lh3.googleusercontent.com/aida-public/AB6AXuDe-qngiMluapnPgt_EUzAdkILyMhqzqLMa1H8KrzdzHSxrX3qHnFK99q3wJdQRBkUCPw36LuxuBElWy6xaUg8K6HHb1Ym49aWIMx2dlRtfFc2YLpwXihWF7nSlSLuq6OV-UQ4rycqyDspKi8ayxsHDguTVRJ5AYgWvSjyQxatNbZXsjVqYT-5lDpz2OIEXDK3uZIGh-IfMsDv6doblnRSJ8GUccofQAIPT9ieTwuCXuN_8LbmYGgD8Fa14CQkHJXMEx_SjuaQpkfFM"
             />
-            <span className="text-xl md:text-2xl font-bold tracking-tighter text-primary font-headline">AyresNet</span>
+            <span className="hidden sm:block text-xl md:text-2xl font-bold tracking-tighter text-primary font-headline">AyresNet</span>
           </div>
         </div>
 
@@ -90,12 +90,12 @@ export function TopNavBar({ onMenuClick }: TopNavBarProps) {
         <button className="p-2 rounded-full text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200">
           <span className="material-symbols-outlined">notifications</span>
         </button>
-        <div className="h-8 w-8 rounded-full bg-primary-container flex items-center justify-center text-primary-fixed font-bold text-xs shrink-0">
+        <div className="hidden md:flex h-8 w-8 rounded-full bg-primary-container items-center justify-center text-primary-fixed font-bold text-xs shrink-0">
           {initials}
         </div>
         <button 
           onClick={() => logout()}
-          className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 group cursor-pointer shrink-0"
+          className="hidden md:flex items-center gap-2 px-3 py-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 group cursor-pointer shrink-0"
         >
           <span className="material-symbols-outlined group-hover:text-error transition-colors">logout</span>
           <span className="hidden lg:inline text-sm font-medium">Cerrar Sesión</span>

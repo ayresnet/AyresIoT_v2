@@ -42,7 +42,7 @@ interface SideNavBarProps {
 }
 
 export function SideNavBar({ isOpen, onClose }: SideNavBarProps) {
-  const { dbUser, loading, user } = useAuth();
+  const { dbUser, loading, user, logout } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -130,6 +130,17 @@ export function SideNavBar({ isOpen, onClose }: SideNavBarProps) {
             onClick={() => navigate('/dashboard/configuracion')}
           />
         </nav>
+
+        {/* Logout (Visible en móvil para limpiar el TopBar) */}
+        <div className="px-3 md:hidden">
+          <button 
+            onClick={() => logout()}
+            className="flex items-center gap-4 px-4 py-3 rounded-lg w-full text-left text-error hover:bg-error/10 transition-all duration-300"
+          >
+            <span className="material-symbols-outlined">logout</span>
+            <span className="font-medium">Cerrar Sesión</span>
+          </button>
+        </div>
 
         {/* Footer */}
         <div className="mt-auto px-4 pt-4 border-t border-outline-variant/10">

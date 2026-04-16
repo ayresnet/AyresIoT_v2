@@ -6,6 +6,7 @@ import { database } from '@/lib/firebase/client';
 import { useAuth } from '@/context/AuthContext';
 import { usePortonData } from '@/hooks/usePortonData';
 import { isDeviceOnline, formatTimeAgo } from '@/lib/utils/deviceUtils';
+import { DevicePlanBadge } from './DevicePlanBadge';
 import type { PortonDevice } from '@/lib/types/devices';
 
 function PortonCard({ porton, dni }: { porton: PortonDevice; dni: string }) {
@@ -42,13 +43,7 @@ function PortonCard({ porton, dni }: { porton: PortonDevice; dni: string }) {
               <h2 className="font-poppins font-semibold text-on-surface text-sm uppercase">
                 Portón {porton.id}
               </h2>
-              <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase ${
-                porton.config?.plan === 'plus'
-                  ? 'bg-purple-500/20 text-purple-300'
-                  : 'bg-white/5 text-neutral-400'
-              }`}>
-                {porton.config?.plan ?? 'free'}
-              </span>
+              <DevicePlanBadge plan={porton.config?.plan} />
             </div>
             <div className="flex items-center gap-1.5">
               <div className={`w-1.5 h-1.5 rounded-full ${online ? 'bg-secondary animate-pulse' : 'bg-red-500'}`} />
@@ -65,8 +60,8 @@ function PortonCard({ porton, dni }: { porton: PortonDevice; dni: string }) {
         </span>
       </div>
 
-      {/* Último contacto */}
-      <p className="text-[10px] text-neutral-600 -mt-2">
+      {/* Última actualización */}
+      <p className="text-[10px] text-on-surface-variant/60 -mt-2">
         Último contacto: {formatTimeAgo(porton.last_heartbeat)}
       </p>
 
@@ -74,11 +69,11 @@ function PortonCard({ porton, dni }: { porton: PortonDevice; dni: string }) {
       <div className="flex flex-col gap-2">
         {/* Portón 1 */}
         {porton.porton1 && (
-          <div className="flex items-center justify-between py-2.5 px-3 rounded-xl bg-white/3 border border-white/5">
+          <div className="flex items-center justify-between py-2.5 px-3 rounded-xl bg-surface-container border border-outline-variant/10">
             <div className="flex items-center gap-2">
               <span className="material-symbols-outlined text-neutral-400 text-base">garage_home</span>
               <div>
-                <p className="text-[11px] text-neutral-400 font-medium">Principal</p>
+                <p className="text-[11px] text-on-surface-variant/70 font-medium">Principal</p>
                 <p className={`text-xs font-bold uppercase ${getPortonEstadoColor(porton.porton1.estado)}`}>
                   {porton.porton1.estado ?? 'Desconocido'}
                 </p>
@@ -96,11 +91,11 @@ function PortonCard({ porton, dni }: { porton: PortonDevice; dni: string }) {
 
         {/* Portón 2 */}
         {porton.porton2 && (
-          <div className="flex items-center justify-between py-2.5 px-3 rounded-xl bg-white/3 border border-white/5">
+          <div className="flex items-center justify-between py-2.5 px-3 rounded-xl bg-surface-container border border-outline-variant/10">
             <div className="flex items-center gap-2">
               <span className="material-symbols-outlined text-neutral-400 text-base">garage_home</span>
               <div>
-                <p className="text-[11px] text-neutral-400 font-medium">Secundario</p>
+                <p className="text-[11px] text-on-surface-variant/70 font-medium">Secundario</p>
                 <p className={`text-xs font-bold uppercase ${getPortonEstadoColor(porton.porton2.estado)}`}>
                   {porton.porton2.estado ?? 'Desconocido'}
                 </p>

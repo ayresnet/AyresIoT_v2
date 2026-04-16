@@ -6,6 +6,7 @@ import { database } from '@/lib/firebase/client';
 import { useAuth } from '@/context/AuthContext';
 import { useAlarmaData } from '@/hooks/useAlarmaData';
 import { isDeviceOnline, getAlarmStateLabel, formatTimeAgo } from '@/lib/utils/deviceUtils';
+import { DevicePlanBadge } from './DevicePlanBadge';
 import type { AlarmDevice, AlarmState } from '@/lib/types/devices';
 
 function AlarmCard({ alarm, dni }: { alarm: AlarmDevice; dni: string }) {
@@ -49,13 +50,7 @@ function AlarmCard({ alarm, dni }: { alarm: AlarmDevice; dni: string }) {
               <h2 className="font-poppins font-semibold text-on-surface text-sm uppercase">
                 Alarma {alarm.id}
               </h2>
-              <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase ${
-                alarm.config?.plan === 'plus'
-                  ? 'bg-purple-500/20 text-purple-300'
-                  : 'bg-white/5 text-neutral-400'
-              }`}>
-                {alarm.config?.plan ?? 'free'}
-              </span>
+              <DevicePlanBadge plan={alarm.config?.plan} />
             </div>
             <div className="flex items-center gap-1.5">
               <div className={`w-1.5 h-1.5 rounded-full ${
@@ -86,7 +81,7 @@ function AlarmCard({ alarm, dni }: { alarm: AlarmDevice; dni: string }) {
       </div>
 
       {/* Última actualización */}
-      <p className="text-[10px] text-neutral-600 -mt-2">
+      <p className="text-[10px] text-on-surface-variant/60 -mt-2">
         Último contacto: {formatTimeAgo(alarm.last_heartbeat)}
       </p>
 
@@ -157,8 +152,10 @@ function AlarmCard({ alarm, dni }: { alarm: AlarmDevice; dni: string }) {
       {alarm.zonas && alarm.zonas.length > 0 && (
         <div className="grid grid-cols-4 gap-1.5">
           {alarm.zonas.slice(0, 4).map((zona, idx) => (
-            <div key={idx} className={`text-center py-1 rounded-lg text-[9px] font-bold uppercase ${
-              zona === 'abierta' ? 'bg-red-500/20 text-red-400' : 'bg-white/5 text-neutral-500'
+            <div key={idx} className={`text-center py-1.5 rounded-lg text-[9px] font-bold uppercase transition-colors ${
+              zona === 'abierta' 
+                ? 'bg-red-500/10 text-red-500 dark:bg-red-500/20 dark:text-red-400 border border-red-500/20' 
+                : 'bg-surface-container-high text-on-surface-variant/40 border border-outline-variant/10'
             }`}>
               Z{idx + 1} {zona === 'abierta' ? '🔴' : '●'}
             </div>

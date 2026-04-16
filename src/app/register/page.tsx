@@ -14,7 +14,7 @@ export default function RegisterPage() {
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  
+
   const [formData, setFormData] = useState({
     nombre: "",
     apellido: "",
@@ -75,32 +75,32 @@ export default function RegisterPage() {
         <div className="auth-grid-responsive" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', columnGap: '1.5rem', rowGap: '1.5rem' }}>
           <AuthInput label="Nombre" name="nombre" required value={formData.nombre} onChange={handleChange} placeholder="Ej. Juan" />
           <AuthInput label="Apellido" name="apellido" required value={formData.apellido} onChange={handleChange} placeholder="Ej. Pérez" />
-          <AuthInput label="DNI" name="dni" required value={formData.dni} onChange={handleChange} placeholder="12.345.678" />
+          <AuthInput label="DNI" name="dni" required value={formData.dni} onChange={handleChange} placeholder="Número DNI sin puntos" />
           <AuthInput label="Celular" name="celular" required value={formData.celular} onChange={handleChange} placeholder="+54 9 11 ..." />
           <div className="auth-grid-span-2" style={{ gridColumn: 'span 2' }}>
-            <AuthInput label="Email" name="email" type="email" required value={formData.email} onChange={handleChange} placeholder="nombre@ejemplo.com" />
+            <AuthInput label="Email" name="email" type="email" required value={formData.email} onChange={handleChange} placeholder="nombre@correo.com" />
           </div>
-          <AuthInput 
-            label="Contraseña" 
+          <AuthInput
+            label="Contraseña"
             name="password"
-            type="password" 
-            required 
-            value={formData.password} 
-            onChange={handleChange} 
-            placeholder="Contraseña" 
-            showPassword={showPassword} 
-            onTogglePassword={() => setShowPassword(!showPassword)} 
+            type="password"
+            required
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Contraseña"
+            showPassword={showPassword}
+            onTogglePassword={() => setShowPassword(!showPassword)}
           />
-          <AuthInput 
-            label="Confirmar" 
+          <AuthInput
+            label="Confirmar"
             name="confirmPassword"
-            type="password" 
-            required 
-            value={formData.confirmPassword} 
-            onChange={handleChange} 
-            placeholder="Repetir contraseña" 
-            showPassword={showConfirmPassword} 
-            onTogglePassword={() => setShowConfirmPassword(!showConfirmPassword)} 
+            type="password"
+            required
+            value={formData.confirmPassword}
+            onChange={handleChange}
+            placeholder="Repetir contraseña"
+            showPassword={showConfirmPassword}
+            onTogglePassword={() => setShowConfirmPassword(!showConfirmPassword)}
           />
         </div>
 
@@ -108,7 +108,7 @@ export default function RegisterPage() {
           <AuthButton loading={loading}>
             Regístrate ahora
           </AuthButton>
-          
+
           <div style={{ textAlign: 'center' }}>
             <a href="/login" style={{ fontSize: '0.75rem', color: '#9ca3af', textDecoration: 'none' }}>¿Ya tienes cuenta? <span style={{ color: '#3949AB', fontWeight: 'bold' }}>Regresar al login</span></a>
           </div>

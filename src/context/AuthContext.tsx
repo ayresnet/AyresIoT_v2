@@ -28,8 +28,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
         try {
-          // Intentar obtener los datos del usuario desde nuestro SQL
-          const response = await fetch(`/api/auth/me?uid=${firebaseUser.uid}`);
+          // Intentar obtener los datos del usuario desde nuestro SQL (pasando email para auto-sync)
+          const response = await fetch(`/api/auth/me?uid=${firebaseUser.uid}&email=${firebaseUser.email}`);
           if (response.ok) {
             const dbData: UserData = await response.json();
             setState({
@@ -40,8 +40,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
               isSuperAdmin: dbData.role === 'superadmin',
             });
           } else {
-            // Si no está en SQL todavía
-            setState(prev => ({ ...prev, user: firebaseUser, loading: false }));
+            // Si no está en SQL todavía, marcamos como cargado pero dbUser será null
+            setState(prev => ({ 
+              ...prev, 
+              user: firebaseUser, 
+              dbUser: null,
+              loading: false,
+              isAdmin: false,
+              isSuperAdmin: false
+            }));
           }
         } catch (error) {
           console.error("Error al sincronizar con SQL:", error);

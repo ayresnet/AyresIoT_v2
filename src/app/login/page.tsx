@@ -56,15 +56,15 @@ export default function LoginPage() {
           <div style={{ padding: '0.75rem', backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.2)', color: '#ef4444', fontSize: '0.875rem', borderRadius: '0.5rem', textAlign: 'center' }}>{error}</div>
         )}
 
-        <AuthInput label="Correo Electrónico" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="nombre@empresa.com" />
+        <AuthInput label="Correo Electrónico" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="nombre@correo.com" />
 
-        <AuthInput 
-          label="Contraseña" 
-          type="password" 
-          required 
-          value={password} 
-          onChange={(e) => setPassword(e.target.value)} 
-          placeholder="Contraseña" 
+        <AuthInput
+          label="Contraseña"
+          type="password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Contraseña"
           showPassword={showPassword}
           onTogglePassword={() => setShowPassword(!showPassword)}
         />

@@ -8,12 +8,14 @@ interface TopNavBarProps {
 }
 
 export function TopNavBar({ onMenuClick }: TopNavBarProps) {
-  const { dbUser, logout } = useAuth();
+  const { user, dbUser, logout } = useAuth();
   
-  // Extraer iniciales (Placeholder JD si no hay)
+  // Extraer iniciales (Fallback a primera letra del email si no hay nombre en SQL)
   const initials = dbUser?.nombre && dbUser?.apellido 
     ? `${dbUser.nombre[0]}${dbUser.apellido[0]}`.toUpperCase() 
-    : "JD";
+    : user?.email 
+      ? user.email[0].toUpperCase()
+      : "JD";
 
   return (
     <header className="fixed top-0 w-full z-50 bg-[#131313] bg-neutral-900/50 backdrop-blur-xl flex justify-between items-center px-4 md:px-6 h-16 border-b border-outline-variant/10">

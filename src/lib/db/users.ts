@@ -35,6 +35,39 @@ export async function getUserByFirebaseUID(uid: string): Promise<SQLUser | null>
 }
 
 /**
+ * Obtiene un usuario por su email
+ */
+export async function getUserByEmail(email: string): Promise<SQLUser | null> {
+  try {
+    const [rows] = await pool.execute<RowDataPacket[]>(
+      'SELECT * FROM users WHERE email = ? LIMIT 1',
+      [email]
+    );
+
+    if (rows.length === 0) return null;
+    return rows[0] as SQLUser;
+  } catch (error) {
+    console.error("Error al obtener usuario por email de SQL:", error);
+    throw error;
+  }
+}
+
+/**
+ * Actualiza el UID de Firebase para un usuario existente
+ */
+export async function updateFirebaseUID(userId: number, uid: string) {
+  try {
+    await pool.execute(
+      'UPDATE users SET firebase_uid = ? WHERE id = ?',
+      [uid, userId]
+    );
+  } catch (error) {
+    console.error("Error al actualizar Firebase UID:", error);
+    throw error;
+  }
+}
+
+/**
  * Crea o vincula un usuario de Firebase en nuestra base de datos SQL local.
  * Esto es útil para el primer registro.
  */

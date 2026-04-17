@@ -272,8 +272,8 @@ function AddDeviceModal({ onClose, onAdd, dni }: {
   };
 
   return (
-    <div className="fixed inset-0 bg-background/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-surface border border-outline-variant/10 rounded-2xl shadow-2xl w-full max-w-md p-6">
+    <div className="fixed inset-0 bg-background/80 backdrop-blur-md flex items-center justify-center z-50 p-4">
+      <div className="bg-surface dark:bg-surface-container-high border border-outline-variant/10 dark:border-white/10 rounded-2xl shadow-2xl w-full max-w-md p-6">
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-bold text-on-surface">Nuevo Dispositivo</h2>
           <button onClick={onClose} className="text-on-surface-variant hover:text-on-surface transition-colors">

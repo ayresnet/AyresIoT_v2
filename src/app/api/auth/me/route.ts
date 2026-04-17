@@ -16,14 +16,16 @@ export async function GET(request: Request) {
 
     // 2. Si no existe por UID pero tenemos email, intentar Auto-Sync
     if (!dbUser && email) {
-      dbUser = await getUserByEmail(email);
+      // Normalizar email para evitar problemas de mayúsculas
+      const normalizedEmail = email.toLowerCase();
+      dbUser = await getUserByEmail(normalizedEmail);
       
       if (dbUser) {
         // Encontramos al usuario por email, vinculamos su UID de forma automática
         await updateFirebaseUID(dbUser.id, uid);
         // Actualizamos el objeto en memoria para la respuesta
         dbUser.firebase_uid = uid;
-        console.log(`Auto-Sync exitoso para: ${email} (UID: ${uid})`);
+        console.log(`Auto-Sync exitoso para: ${normalizedEmail} (UID: ${uid})`);
       }
     }
 

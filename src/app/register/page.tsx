@@ -44,11 +44,28 @@ export default function RegisterPage() {
     }
 
     try {
-      // await signUp(formData.email, formData.password);
+      // Metadatos para SQL
+      const metadata = {
+        nombre: formData.nombre,
+        apellido: formData.apellido,
+        dni: formData.dni,
+        celular: formData.celular
+      };
+
+      await signUp(formData.email, formData.password, metadata);
       setLoading(false);
-      router.push("/login?registered=true");
+      router.push("/dashboard");
     } catch (err: any) {
-      setError("Error al crear la cuenta.");
+      console.error("Registration error:", err);
+      let message = "Error al crear la cuenta.";
+      if (err.code === "auth/email-already-in-use") {
+        message = "Este email ya está en uso. Por favor, inicia sesión.";
+      } else if (err.code === "auth/weak-password") {
+        message = "La contraseña es muy débil.";
+      } else if (err.code === "auth/invalid-email") {
+        message = "El formato del email no es válido.";
+      }
+      setError(message);
       setLoading(false);
     }
   };
@@ -69,7 +86,17 @@ export default function RegisterPage() {
     >
       <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
         {error && (
-          <div style={{ padding: '0.75rem', backgroundColor: 'rgba(239, 68, 68, 0.1)', border: '1px solid rgba(239, 68, 68, 0.2)', color: '#ef4444', fontSize: '0.875rem', borderRadius: '0.5rem', textAlign: 'center' }}>{error}</div>
+          <div style={{ 
+            padding: '0.75rem', 
+            backgroundColor: 'rgba(239, 68, 68, 0.1)', 
+            border: '1px solid rgba(239, 68, 68, 0.2)', 
+            color: '#ef4444', 
+            fontSize: '0.875rem', 
+            borderRadius: '0.5rem', 
+            textAlign: 'center' 
+          }}>
+            {error}
+          </div>
         )}
 
         <div className="auth-grid-responsive" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', columnGap: '1.5rem', rowGap: '1.5rem' }}>

@@ -19,10 +19,10 @@ function NavItem({ icon, label, path, currentPath, onClick, fillIcon }: NavItemP
   return (
     <button
       onClick={onClick}
-      className={`flex items-center gap-4 px-4 py-3 rounded-lg transition-all duration-300 w-full text-left group
+      className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 w-full text-left group
         ${isActive
-          ? "bg-primary/10 text-primary border-r-2 border-primary"
-          : "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/40"
+          ? "bg-primary/10 text-primary dark:bg-primary/20 border-r-4 border-primary shadow-[4px_0_12px_-4px_rgba(92,144,255,0.3)]"
+          : "text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest/60 dark:hover:bg-white/5"
         }`}
     >
       <span
@@ -69,7 +69,7 @@ export function SideNavBar({ isOpen, onClose }: SideNavBarProps) {
         onClick={onClose}
       />
 
-      <aside className={`fixed left-0 top-0 h-full w-64 bg-surface flex flex-col py-8 gap-2 font-body text-sm font-medium border-r border-outline-variant/10 overflow-y-auto z-50 transition-transform duration-300 lg:top-16 lg:h-[calc(100vh-64px)] lg:translate-x-0 ${
+      <aside className={`fixed left-0 top-0 h-full w-64 bg-surface dark:bg-surface flex flex-col py-8 gap-2 font-body text-sm font-medium border-r border-outline-variant/20 dark:border-white/5 overflow-y-auto z-50 transition-transform duration-300 lg:top-16 lg:h-[calc(100vh-64px)] lg:translate-x-0 shadow-xl ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       }`}>
         {/* Close button for mobile */}
@@ -105,13 +105,23 @@ export function SideNavBar({ isOpen, onClose }: SideNavBarProps) {
             onClick={() => navigate('/dashboard/dispositivos')}
           />
 
-          {isAdmin && (
+          {dbUser?.role === 'superadmin' && (
             <NavItem
               icon="group"
               label="Usuarios"
               path="/dashboard/usuarios"
               currentPath={pathname}
               onClick={() => navigate('/dashboard/usuarios')}
+            />
+          )}
+
+          {dbUser?.role === 'admin' && (
+            <NavItem
+              icon="manage_accounts"
+              label="Gestión de accesos"
+              path="/dashboard/accesos"
+              currentPath={pathname}
+              onClick={() => navigate('/dashboard/accesos')}
             />
           )}
 

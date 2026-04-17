@@ -80,24 +80,25 @@ export async function syncUserToSQL(userData: Partial<SQLUser>) {
     );
 
     if (existing.length > 0) {
-      // Actualizamos el Firebase UID si ya existía por DNI o Email (Vinculación)
+      // Actualizamos el Firebase UID y el Celular si ya existía (Vinculación)
       await pool.execute(
-        'UPDATE users SET firebase_uid = ? WHERE id = ?',
-        [userData.firebase_uid, existing[0].id]
+        'UPDATE users SET firebase_uid = ?, celular = ? WHERE id = ?',
+        [userData.firebase_uid, userData.celular || '', existing[0].id]
       );
       return existing[0].id;
     }
 
     // Si no existe, lo insertamos nuevo (Caso de registro manual o primer admin)
     const [result] = await pool.execute(
-      `INSERT INTO users (firebase_uid, email, nombre, apellido, dni, role) 
-       VALUES (?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO users (firebase_uid, email, nombre, apellido, dni, celular, role) 
+       VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [
         userData.firebase_uid, 
         userData.email, 
         userData.nombre || '', 
         userData.apellido || '', 
         userData.dni || '', 
+        userData.celular || '',
         userData.role || 'user'
       ]
     );

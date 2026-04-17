@@ -20,8 +20,8 @@ export function ConfirmActionModal({
   isLoading = false
 }: ConfirmActionModalProps) {
   return (
-    <div className="fixed inset-0 bg-background/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
-      <div className="bg-surface border border-red-500/20 rounded-2xl shadow-2xl w-full max-w-sm p-6 transform transition-all animate-in fade-in zoom-in duration-200">
+    <div className="fixed inset-0 bg-background/80 backdrop-blur-md flex items-center justify-center z-50 p-4 animate-in fade-in duration-300">
+      <div className="bg-surface dark:bg-surface-container-high border border-outline-variant/10 dark:border-primary/20 rounded-2xl shadow-2xl w-full max-w-sm p-6 transform transition-all animate-in fade-in zoom-in duration-200">
         <div className="flex items-center gap-4 mb-4">
           <div className="w-12 h-12 rounded-full bg-red-500/10 flex items-center justify-center shrink-0">
             <span className="material-symbols-outlined text-red-500 text-2xl">warning</span>
